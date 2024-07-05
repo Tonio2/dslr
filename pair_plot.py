@@ -5,29 +5,41 @@ from pandas.plotting import scatter_matrix
 
 import sys
 
+
 def main(filename):
     df = pd.read_csv(filename)
-    
-    col_heads = [col_name for col_name in df.columns if df[col_name].dtypes == "float64"]
-    col_heads.append('Hogwarts House')
-    
-    tmp = df.loc[:,col_heads]
-    
+
+    col_heads = [
+        col_name for col_name in df.columns if df[col_name].dtypes == "float64"
+    ]
+    col_heads.append("Hogwarts House")
+
+    tmp = df.loc[:, col_heads]
+
     tmp = tmp.dropna()
-    
+
     print(tmp)
-    
-    colors = {'Ravenclaw': 'blue', 'Slytherin': 'green', 'Gryffindor': 'red', 'Hufflepuff': 'yellow'}
+
+    colors = {
+        "Ravenclaw": "blue",
+        "Slytherin": "green",
+        "Gryffindor": "red",
+        "Hufflepuff": "yellow",
+    }
     for i in tmp.index.tolist():
-        value = colors[tmp.at[i, 'Hogwarts House']]
-        tmp.at[i, 'Hogwarts House'] = value
-    
-    
+        value = colors[tmp.at[i, "Hogwarts House"]]
+        tmp.at[i, "Hogwarts House"] = value
 
     # Plotting the scatter matrix
-    scatter_matrix(tmp, alpha=0.8, figsize=(18, 18), diagonal='kde', c=[color for color in tmp['Hogwarts House']])
+    scatter_matrix(
+        tmp,
+        alpha=0.8,
+        figsize=(18, 18),
+        diagonal="kde",
+        c=[color for color in tmp["Hogwarts House"]],
+    )
 
-    plt.show()
+    plt.savefig("pairplot.png")  # Save the plot to a file
 
 
 if __name__ == "__main__":
