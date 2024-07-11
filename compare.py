@@ -5,9 +5,13 @@ import pandas as pd
 def main(filename):
     df = pd.read_csv(filename)
     df_pred = pd.read_csv("houses.csv")
+    
+    df_pred.set_index("Index", inplace=True)
 
     sum = 0
-    for idx in df.index:
+    total = 0
+    for idx in df_pred.index:
+        total += 1
         if df_pred.loc[idx, "Hogwarts House"] == df.loc[idx, "Hogwarts House"]:
             sum += 1
         else:
@@ -15,7 +19,7 @@ def main(filename):
                 f"Row {idx} - predicted: {df_pred.loc[idx, 'Hogwarts House']}, actual: {df.loc[idx, 'Hogwarts House']}"
             )
 
-    print(f"Accuracy: {sum / len(df)}")
+    print(f"Accuracy: {sum / total}")
 
 
 if __name__ == "__main__":

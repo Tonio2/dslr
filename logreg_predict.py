@@ -22,7 +22,7 @@ def sort(line, betas):
 
 
 def main(filename, betas):
-    df = pd.read_csv(filename)
+    df = pd.read_csv(filename).dropna(subset=["Flying", "Divination", "Charms"])
     df_pred = pd.DataFrame()
     df_pred["Index"] = df.index
     df["Flying"] = (df["Flying"] - df["Flying"].mean()) / df["Flying"].std()
@@ -30,7 +30,7 @@ def main(filename, betas):
         "Divination"
     ].std()
     df["Charms"] = (df["Charms"] - df["Charms"].mean()) / df["Charms"].std()
-    df_pred["Hogwarts House"] = df["Index"].map(lambda x: sort(df.loc[x], betas))
+    df_pred["Hogwarts House"] = df_pred["Index"].apply(lambda idx: sort(df.loc[idx], betas))
 
     df_pred.to_csv("houses.csv", index=False)
 

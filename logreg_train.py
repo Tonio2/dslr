@@ -4,7 +4,7 @@ import math
 
 
 class LogisticRegression:
-    def __init__(self, alpha=0.01, n_iter=1000):
+    def __init__(self, alpha=0.1, n_iter=10000):
         self.alpha = alpha
         self.n_iter = n_iter
         self.beta0 = 0
@@ -15,16 +15,16 @@ class LogisticRegression:
             delta0 = 0
             delta1 = 0
             for i in range(len(x)):
-                delta0 += self.hypothesis(x[i]) - y[i]
-                delta1 += (self.hypothesis(x[i]) - y[i]) * x[i]
+                delta0 += self.sigmoid(x[i]) - y[i]
+                delta1 += (self.sigmoid(x[i]) - y[i]) * x[i]
             self.beta0 -= self.alpha * delta0 / len(x)
             self.beta1 -= self.alpha * delta1 / len(x)
 
-    def hypothesis(self, x):
+    def sigmoid(self, x):
         return 1 / (1 + math.exp(-(self.beta0 + self.beta1 * x)))
 
     def predict(self, x):
-        return self.hypothesis(x).map(lambda x: 1 if x >= 0.5 else 0)
+        return self.sigmoid(x).map(lambda x: 1 if x >= 0.5 else 0)
 
     def get_params(self):
         return [self.beta0, self.beta1]
