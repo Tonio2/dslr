@@ -21,10 +21,19 @@ def sort(line, betas):
         gryffindor_betas = [gryffindor_betas[i] for i in range(len(gryffindor_grades) + 1)]
         if predict(gryffindor_betas, gryffindor_grades):
             return "Gryffindor"
-    if predict(betas[3:5], [line["Divination"]]):
-        return "Slytherin"
-    if predict(betas[5:], [line["Charms"]]):
+    
+    if predict(betas[6:], [line["Charms"]]):
         return "Ravenclaw"
+    
+    slytherin_betas = betas[3:6]
+    slytherin_grades = [line["Divination"], line["Astronomy"]]
+    slytherin_grades = [grade for grade in slytherin_grades if not np.isnan(grade)]
+
+    if len(slytherin_grades) > 0:
+        slytherin_betas = [slytherin_betas[i] for i in range(len(slytherin_grades) + 1)]
+        if predict(slytherin_betas, slytherin_grades):
+            return "Slytherin"
+    
     return "Hufflepuff"
 
 
@@ -39,6 +48,7 @@ def main(filename, betas):
     df["Divination"] = (df["Divination"] - df["Divination"].mean()) / df[
         "Divination"
     ].std()
+    df["Astronomy"] = (df["Astronomy"] - df["Astronomy"].mean()) / df["Astronomy"].std()
     df["Charms"] = (df["Charms"] - df["Charms"].mean()) / df["Charms"].std()
     df_pred["Hogwarts House"] = df["Index"].map(lambda x: sort(df.loc[x], betas))
 
@@ -52,6 +62,6 @@ if __name__ == "__main__":
     betas = []
 
     with open("weights.txt") as f:
-        for _ in range(7):
+        for _ in range(8):
             betas.append(float(f.readline()))
     main(sys.argv[1], betas)

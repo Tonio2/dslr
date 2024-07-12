@@ -5,7 +5,7 @@ import numpy as np
 
 
 class LogisticRegression:
-    def __init__(self, x, y, alpha=0.1, n_iter=1000):
+    def __init__(self, x, y, alpha=0.1, n_iter=10000):
         self.alpha = alpha
         self.n_iter = n_iter
         self.x = np.array(x)
@@ -67,10 +67,10 @@ def main(filename):
         logreg.fit()
         f.write(f"{logreg.get_params()[0]}\n{logreg.get_params()[1]}\n{logreg.get_params()[2]}\n")
 
-        x, y = format_data(df, ["Divination"], "Slytherin")
+        x, y = format_data(df, ["Divination", "Astronomy"], "Slytherin")
         logreg2 = LogisticRegression(x, y)
         logreg2.fit()
-        f.write(f"{logreg2.get_params()[0]}\n{logreg2.get_params()[1]}\n")
+        f.write(f"{logreg2.get_params()[0]}\n{logreg2.get_params()[1]}\n{logreg2.get_params()[2]}\n")
 
         x, y = format_data(df, ["Charms"], "Ravenclaw")
         logreg3 = LogisticRegression(x, y)
