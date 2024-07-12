@@ -1,22 +1,29 @@
 import sys
 import math
 import pandas as pd
+import numpy as np
+
+def hypothesis(betas, x):
+    x.insert(0, 1)
+    return 1 / (1 + np.exp(-np.dot(x, betas)))
 
 
-def hypothesis(beta0, beta1, x):
-    return 1 / (1 + math.exp(-(beta0 + beta1 * x)))
-
-
-def predict(beta0, beta1, x):
-    return hypothesis(beta0, beta1, x) >= 0.5
+def predict(betas, x):
+    return hypothesis(betas, x) >= 0.5
 
 
 def sort(line, betas):
-    if predict(betas[0], betas[1], line["Flying"]):
-        return "Gryffindor"
-    if predict(betas[2], betas[3], line["Divination"]):
+    gryffindor_betas = betas[:3]
+    gryffindor_grades = [line["Flying"], line["Transfiguration"]]
+    gryffindor_grades = [grade for grade in gryffindor_grades if not np.isnan(grade)]
+
+    if len(gryffindor_grades) > 0:
+        gryffindor_betas = [gryffindor_betas[i] for i in range(len(gryffindor_grades) + 1)]
+        if predict(gryffindor_betas, gryffindor_grades):
+            return "Gryffindor"
+    if predict(betas[3:5], [line["Divination"]]):
         return "Slytherin"
-    if predict(betas[4], betas[5], line["Charms"]):
+    if predict(betas[5:], [line["Charms"]]):
         return "Ravenclaw"
     return "Hufflepuff"
 
@@ -26,6 +33,9 @@ def main(filename, betas):
     df_pred = pd.DataFrame()
     df_pred["Index"] = df.index
     df["Flying"] = (df["Flying"] - df["Flying"].mean()) / df["Flying"].std()
+    df["Transfiguration"] = (df["Transfiguration"] - df["Transfiguration"].mean()) / df[
+        "Transfiguration"
+    ].std()
     df["Divination"] = (df["Divination"] - df["Divination"].mean()) / df[
         "Divination"
     ].std()
@@ -42,6 +52,6 @@ if __name__ == "__main__":
     betas = []
 
     with open("weights.txt") as f:
-        for _ in range(6):
+        for _ in range(7):
             betas.append(float(f.readline()))
     main(sys.argv[1], betas)
