@@ -24,7 +24,7 @@ def sort(line, betas):
         return "Ravenclaw"
 
     slytherin_betas = betas[3:6]
-    slytherin_grades = [line["Divination"], line["Astronomy"]]
+    slytherin_grades = [line["Divination"], line["Herbology"]]
     slytherin_grades = [grade for grade in slytherin_grades if not np.isnan(grade)]
 
     if len(slytherin_grades) > 0:
@@ -40,7 +40,7 @@ def main(filename, betas):
     df_pred = pd.DataFrame()
     df_pred["Index"] = df.index
 
-    all_features = ["Flying", "History of Magic", "Divination", "Astronomy", "Charms"]
+    all_features = ["Flying", "History of Magic", "Divination", "Herbology", "Charms"]
     for feature in all_features:
         df[feature] = (df[feature] - df[feature].mean()) / df[feature].std()
 

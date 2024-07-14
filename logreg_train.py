@@ -67,7 +67,7 @@ def main(filename):
         logreg.fit()
         f.write(f"{logreg.get_params()[0]}\n{logreg.get_params()[1]}\n{logreg.get_params()[2]}\n")
 
-        x, y = format_data(df, ["Divination", "Astronomy"], "Slytherin")
+        x, y = format_data(df, ["Divination", "Herbology"], "Slytherin")
         logreg2 = LogisticRegression(x, y)
         logreg2.fit()
         f.write(f"{logreg2.get_params()[0]}\n{logreg2.get_params()[1]}\n{logreg2.get_params()[2]}\n")
