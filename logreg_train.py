@@ -62,7 +62,7 @@ def format_data(df, col_names, house):
 def main(filename):
     df = pd.read_csv(filename)
     with open("weights.txt", "w") as f:
-        x, y = format_data(df, ["Flying", "Transfiguration"], "Gryffindor")
+        x, y = format_data(df, ["Flying", "History of Magic"], "Gryffindor")
         logreg = LogisticRegression(x, y)
         logreg.fit()
         f.write(f"{logreg.get_params()[0]}\n{logreg.get_params()[1]}\n{logreg.get_params()[2]}\n")
