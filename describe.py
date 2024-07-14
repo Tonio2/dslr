@@ -5,7 +5,7 @@ import sys
 
 def main(filename):
     df = pd.read_csv(filename)
-    row_heads = ["Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max"]
+    row_heads = ["Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max", "Range"]
     col_heads = [
         col_name for col_name in df.columns if df[col_name].dtypes == "float64"
     ]
@@ -24,6 +24,7 @@ def main(filename):
         res.at["25%", col_name] = quantile(values, 0.25)
         res.at["50%", col_name] = quantile(values, 0.5)
         res.at["75%", col_name] = quantile(values, 0.75)
+        res.at["Range", col_name] = max_val(values) - min_val(values)
 
     print(res)
 

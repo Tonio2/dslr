@@ -2,8 +2,8 @@ import sys
 import pandas as pd
 
 house_features = {
-    "Gryffindor": ["Flying", "Transfiguration"],
-    "Slytherin": ["Divination", "Astronomy"],
+    "Gryffindor": ["Flying", "History of Magic"],
+    "Slytherin": ["Divination", "Herbology"],
     "Ravenclaw": ["Charms"],
     "Hufflepuff": [],
 }
