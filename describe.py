@@ -15,6 +15,8 @@ def main(filename):
         values = clean(df[col_name])
         if len(values) == 0:
             continue
+        res.at["Range", col_name] = max_val(values) - min_val(values)
+        res.at["Missing values", col_name] = missing_val(df[col_name])
         res.at["Count", col_name] = len(values)
         res.at["Mean", col_name] = mean(values)
         res.at["Std", col_name] = std(values)
@@ -24,8 +26,7 @@ def main(filename):
         res.at["25%", col_name] = quantile(values, 0.25)
         res.at["50%", col_name] = quantile(values, 0.5)
         res.at["75%", col_name] = quantile(values, 0.75)
-        res.at["Range", col_name] = max_val(values) - min_val(values)
-        res.at["Missing values", col_name] = missing_val(df[col_name])
+
 
     print(res)
 
