@@ -62,3 +62,10 @@ def quantile(values, q):
         return values[idx]
 
     return values[idx] + (values[idx + 1] - values[idx]) * (pos - idx)
+
+def missing_val(values):
+    i = 0
+    for val in values:
+        if math.isnan(val):
+            i += 1
+    return i

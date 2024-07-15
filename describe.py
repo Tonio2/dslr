@@ -5,13 +5,14 @@ import sys
 
 def main(filename):
     df = pd.read_csv(filename)
-    row_heads = ["Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max", "Range"]
+    row_heads = ["Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max", "Range", "Missing values"]
     col_heads = [
         col_name for col_name in df.columns if df[col_name].dtypes == "float64"
     ]
     res = pd.DataFrame(0.0, index=row_heads, columns=col_heads)
 
     for col_name in res.columns:
+        res.at["Missing values", col_name] = missing_val(df[col_name])
         values = clean(df[col_name])
         if len(values) == 0:
             continue
@@ -25,6 +26,7 @@ def main(filename):
         res.at["50%", col_name] = quantile(values, 0.5)
         res.at["75%", col_name] = quantile(values, 0.75)
         res.at["Range", col_name] = max_val(values) - min_val(values)
+        
 
     print(res)
 
