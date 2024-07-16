@@ -39,7 +39,8 @@ def main(filename):
         c=[color for color in tmp["Hogwarts House"]],
     )
 
-    plt.savefig("pairplot.png")  # Save the plot to a file
+    # plt.savefig("pairplot.png")  # Save the plot to a file
+    plt.show()
 
 
 if __name__ == "__main__":
