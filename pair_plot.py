@@ -18,8 +18,6 @@ def main(filename):
 
     tmp = tmp.dropna()
 
-    print(tmp)
-
     colors = {
         "Ravenclaw": "blue",
         "Slytherin": "green",
