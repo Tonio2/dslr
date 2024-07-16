@@ -795,7 +795,7 @@ Index,Hogwarts House
 793,Hufflepuff
 794,Ravenclaw
 795,Gryffindor
-796,Gryffindor
+796,Hufflepuff
 797,Ravenclaw
 798,Ravenclaw
 799,Ravenclaw
@@ -825,7 +825,7 @@ Index,Hogwarts House
 823,Ravenclaw
 824,Hufflepuff
 825,Ravenclaw
-826,Hufflepuff
+826,Gryffindor
 827,Ravenclaw
 828,Ravenclaw
 829,Slytherin
@@ -840,7 +840,7 @@ Index,Hogwarts House
 838,Ravenclaw
 839,Gryffindor
 840,Hufflepuff
-841,Gryffindor
+841,Hufflepuff
 842,Slytherin
 843,Gryffindor
 844,Hufflepuff
@@ -1312,7 +1312,7 @@ Index,Hogwarts House
 1310,Ravenclaw
 1311,Hufflepuff
 1312,Hufflepuff
-1313,Gryffindor
+1313,Hufflepuff
 1314,Hufflepuff
 1315,Hufflepuff
 1316,Hufflepuff
