@@ -69,3 +69,14 @@ def missing_val(values):
         if math.isnan(val):
             i += 1
     return i
+
+def variance(values):
+    val_mean = mean(values)
+    count = len(values)
+    sum_squared_diff = 0
+
+    for val in values:
+        square_dif = (val - val_mean) ** 2
+        sum_squared_diff += square_dif
+
+    return sum_squared_diff / count
