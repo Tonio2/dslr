@@ -25,18 +25,24 @@ def display(df):
 
 def main(filename):
 
+    feat1 = 'Astronomy'
+    feat2 = 'Defense Against the Dark Arts'
     df = pd.read_csv(filename)
     
     house_names = get_unique_values(df['Hogwarts House'])
-    col_heads = [col_name for col_name in df.columns if df[col_name].dtypes == "float64"]
     
-    fig, axes = plt.subplots(nrows=5, ncols=3, figsize=(15, 25))
-    axes = axes.flatten()
+    # Create a pair plot for feat1 and feat2 with a color for each house
+    fig, ax = plt.subplots()
+    colors = ['blue', 'green', 'red', 'yellow']
+    for i, house in enumerate(house_names):
+        df_house = df[df['Hogwarts House'] == house]
+        ax.scatter(df_house[feat1], df_house[feat2], c=colors[i], label=house)
+
+    # Set the legend out of the graph to improve readibility
+    ax.legend(title='Houses', bbox_to_anchor=(1.05, 1), loc='upper left')
+    ax.set_xlabel(feat1)
+    ax.set_ylabel(feat2)
     
-    for i, col in enumerate(col_heads):
-        df.plot(kind='scatter', x='Hogwarts House', y=col, ax=axes[i])
-    
-    plt.tight_layout(rect=[15.0, 0.03, 1, 0.95])
     plt.show()
 
 
