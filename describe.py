@@ -29,6 +29,7 @@ def main(filename):
         res.at["25%", col_name] = quantile(values, 0.25)
         res.at["50%", col_name] = quantile(values, 0.5)
         res.at["75%", col_name] = quantile(values, 0.75)
+        res.at["Range", col_name] = max_val(values) - min_val(values)
 
     print(res)
 
